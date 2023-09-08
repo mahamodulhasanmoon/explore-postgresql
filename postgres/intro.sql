@@ -13,3 +13,17 @@ CREATE TABLE student(
 ALTER TABLE student RENAME TO learners;
 -- for deleting 
 DROP TABLE learners;
+
+-- create a table with CONSTRAINT_SCHEMA
+CREATE TABLE "user"(
+    user_id INTEGER PRIMARY KEY,
+    username VARCHAR(255) UNIQUE,
+    email VARCHAR(255) UNIQUE
+);
+CREATE TABLE "user1"(
+    user_id SERIAL,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE UNIQUE NOT NULL,
+    PRIMARY KEY(user_id, username)
+);
+
