@@ -27,3 +27,7 @@ CREATE TABLE "user1"(
     PRIMARY KEY(user_id, username)
 );
 
+-- insert DATABASE
+INSERT INTO user1 VALUES (1,'bcd','testmain@gmail.com')
+
+-- change constant 
