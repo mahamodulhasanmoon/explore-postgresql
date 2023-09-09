@@ -10,29 +10,43 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id Int @id @default(autoincrement())
-  email String @unique
-  name String
-  role String
-}
-model Profile{
-  id Int @id @default(autoincrement())
-  userId Int
-  bio String
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  name    String
+  role    String
+  profile Profile?
+  posts   Post[] // Change "Posts" to "Post"
+
+  @@map("users")
 }
 
-model Category{
-  id Int @id @default(autoincrement())
- name String
+model Profile {
+  id     Int    @id @default(autoincrement())
+  userId Int    @unique
+  bio    String
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@map("profiles")
 }
 
-model Posts{
-  id Int @id @default(autoincrement())
-  title String
-  AuthorId Int
+model Category {
+  categoryId Int    @id @default(autoincrement())
+  name       String
+  Post       Post[]
+
+  @@map("categories")
+}
+
+model Post {
+  id         Int      @id @default(autoincrement())
+  title      String
+  authorId   Int // Change "AuthorId" to "authorId"
+  author     User     @relation(fields: [authorId], references: [id])
   categoryId Int
-  createdAt DateTime
-  updatedAt DateTime
+  category   Category @relation(fields: [categoryId], references: [categoryId]) // Updated the reference to "categoryId"
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
 
+  @@map("posts")
 }
