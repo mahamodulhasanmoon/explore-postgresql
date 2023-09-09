@@ -12,6 +12,27 @@ datasource db {
 
 model User{
   id Int @id @default(autoincrement())
-  email String
+  email String @unique
   name String
+  role String
+}
+model Profile{
+  id Int @id @default(autoincrement())
+  userId Int
+  bio String
+}
+
+model Category{
+  id Int @id @default(autoincrement())
+ name String
+}
+
+model Posts{
+  id Int @id @default(autoincrement())
+  title String
+  AuthorId Int
+  categoryId Int
+  createdAt DateTime
+  updatedAt DateTime
+
 }
